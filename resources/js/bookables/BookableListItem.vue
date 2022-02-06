@@ -1,6 +1,12 @@
 <template>
   <div>
-    <h2>Title</h2>
-    <p>content</p>
+    <h2>{{ title }}</h2>
+    <p>{{ content }}</p>
   </div>
 </template>
+
+<script>
+export default {
+  props: { title: String, content: String, price: Number },
+};
+</script>
