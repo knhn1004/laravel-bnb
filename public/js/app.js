@@ -5269,15 +5269,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     title: String,
     content: String,
     price: Number
-  },
-  mounted: function mounted() {//setTimeout(() => {
-    //  this.title = 'new title';
-    //}, 1500);
   }
 });
 
@@ -5312,6 +5310,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -5319,52 +5329,54 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      bookable1: null,
-      bookable2: null
+      bookables: null,
+      loading: true,
+      columns: 3
     };
+  },
+  computed: {
+    rows: function rows() {
+      return !this.bookables ? 0 : Math.ceil(this.bookables.length / this.columns);
+    }
+  },
+  methods: {
+    bookablesInRow: function bookablesInRow(row) {
+      return this.bookables.slice((row - 1) * this.columns, row * this.columns);
+    },
+    placeholdersInRow: function placeholdersInRow(row) {
+      return this.columns - this.bookablesInRow(row).length;
+    }
   },
   created: function created() {
     var _this = this;
 
+    this.loading = true;
     setTimeout(function () {
-      _this.bookable1 = {
+      _this.bookables = [{
         title: 'Cheap Villa 1',
         content: 'a very cheap villa 1'
-      };
-      _this.bookable2 = {
+      }, {
         title: 'Cheap Villa 2',
         content: 'a very cheap villa 2'
-      }; //this.bookable3 = {
-      //  title: 'Cheap Villa 3',
-      //  content: 'a very cheap villa 3',
-      //};
-    }, 2000); //setTimeout(() => {
-    //  console.log('first change');
-    //  this.bookable1.title = 'you will see this';
-    //}, 5000);
-    //setTimeout(() => {
-    //  console.log('second change');
-    //  this.bookable3.title = "you won't see this!";
-    //}, 8000);
-  } //beforeCreate() {
-  //  console.log('before create');
-  //},
-  //created() {
-  //  console.log('created');
-  //},
-  //beforeMount() {
-  //  console.log('before mount');
-  //},
-  //mounted() {
-  //  console.log('mounted');
-  //},
-  //beforeDestroy() {
-  //  console.log('before destroy');
-  //},
-  //destroyed() {
-  //  console.log('destroyed');
-  //},
-
+      }, {
+        title: 'Cheap Villa 3',
+        content: 'a very cheap villa 3'
+      }, {
+        title: 'Cheap Villa 4',
+        content: 'a very cheap villa 4'
+      }, {
+        title: 'Cheap Villa 5',
+        content: 'a very cheap villa 5'
+      }, {
+        title: 'Cheap Villa 6',
+        content: 'a very cheap villa 6'
+      }, {
+        title: 'Cheap Villa 7',
+        content: 'a very cheap villa 7'
+      }];
+      _this.loading = false;
+    }, 2000);
+  }
 });
 
 /***/ }),
@@ -28398,10 +28410,12 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("h2", [_vm._v(_vm._s(_vm.title))]),
-    _vm._v(" "),
-    _c("p", [_vm._v(_vm._s(_vm.content))]),
+  return _c("div", { staticClass: "card" }, [
+    _c("div", { staticClass: "card-body" }, [
+      _c("h2", { staticClass: "card-title h5" }, [_vm._v(_vm._s(_vm.title))]),
+      _vm._v(" "),
+      _c("p", { staticClass: "card-text" }, [_vm._v(_vm._s(_vm.content))]),
+    ]),
   ])
 }
 var staticRenderFns = []
@@ -28427,31 +28441,47 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _vm.bookable1
-        ? _c("BookableListItem", {
-            attrs: {
-              title: _vm.bookable1.title,
-              content: _vm.bookable1.content,
-              price: 1500,
-            },
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.bookable2
-        ? _c("BookableListItem", {
-            attrs: {
-              title: _vm.bookable2.title,
-              content: _vm.bookable2.content,
-              price: 1000,
-            },
-          })
-        : _vm._e(),
-    ],
-    1
-  )
+  return _c("div", [
+    _vm._v("\n  Row is : " + _vm._s(_vm.rows) + "\n  "),
+    _vm.loading
+      ? _c("div", [_c("p", [_vm._v("Loading...")])])
+      : _c(
+          "div",
+          _vm._l(_vm.rows, function (r) {
+            return _c(
+              "div",
+              { key: "row" + r, staticClass: "row mb-3" },
+              [
+                _vm._l(_vm.bookablesInRow(r), function (b, i) {
+                  return _c(
+                    "div",
+                    { key: "row" + r + "col" + i, staticClass: "col" },
+                    [
+                      _c("BookableListItem", {
+                        attrs: {
+                          title: b.title,
+                          content: b.content,
+                          price: 1500,
+                        },
+                      }),
+                    ],
+                    1
+                  )
+                }),
+                _vm._v(" "),
+                _vm._l(_vm.placeholdersInRow(r), function (p) {
+                  return _c("div", {
+                    key: "placeholder" + r + p,
+                    staticClass: "col",
+                  })
+                }),
+              ],
+              2
+            )
+          }),
+          0
+        ),
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
