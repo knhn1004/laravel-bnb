@@ -1,19 +1,14 @@
 <template>
   <div>
     <BookableListItem
-      title="Cheap Villa"
-      content="A very cheap villa"
+      :title="bookable1.title"
+      :content="bookable1.content"
       :price="1500"
     />
     <BookableListItem
-      title="Cheap Villa2"
-      content="A very cheap villa2"
+      :title="bookable2.title"
+      :content="bookable2.content"
       :price="1000"
-    />
-    <BookableListItem
-      title="Cheap Villa3"
-      content="A very cheap villa3"
-      :price="500"
     />
   </div>
 </template>
@@ -25,23 +20,40 @@ export default {
   components: {
     BookableListItem,
   },
-  beforeCreate() {
-    console.log('before create');
+  data() {
+    return {
+      bookable1: {
+        title: 'Cheap Villa1!!!',
+        content: 'a very cheap villa 1',
+      },
+      bookable2: {
+        title: 'Cheap Villa2',
+        content: 'a very cheap villa 2',
+      },
+    };
   },
   created() {
-    console.log('created');
+    setTimeout(() => {
+      this.bookable1.title = 'Cheap Villa (updated)';
+    }, 2000);
   },
-  beforeMount() {
-    console.log('before mount');
-  },
-  mounted() {
-    console.log('mounted');
-  },
-  beforeDestroy() {
-    console.log('before destroy');
-  },
-  destroyed() {
-    console.log('destroyed');
-  },
+  //beforeCreate() {
+  //  console.log('before create');
+  //},
+  //created() {
+  //  console.log('created');
+  //},
+  //beforeMount() {
+  //  console.log('before mount');
+  //},
+  //mounted() {
+  //  console.log('mounted');
+  //},
+  //beforeDestroy() {
+  //  console.log('before destroy');
+  //},
+  //destroyed() {
+  //  console.log('destroyed');
+  //},
 };
 </script>
