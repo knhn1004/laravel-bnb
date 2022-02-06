@@ -1,0 +1,6 @@
+<template>
+  <div>
+    <h2>Title</h2>
+    <p>content</p>
+  </div>
+</template>
