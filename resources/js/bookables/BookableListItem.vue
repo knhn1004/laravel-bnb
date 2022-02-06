@@ -8,5 +8,10 @@
 <script>
 export default {
   props: { title: String, content: String, price: Number },
+  mounted() {
+    //setTimeout(() => {
+    //  this.title = 'new title';
+    //}, 1500);
+  },
 };
 </script>
